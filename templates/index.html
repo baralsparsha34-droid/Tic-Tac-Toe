@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    {% if start | length == 2 %}
+    <div class="Register_Tic">
+        <h1>||Register to Tic-Tac-Toe||</h1>
+    </div>
+
+    <form action="/players" method="POST">
+        <div class="Name_div">
+            <h1 class="Players_name">Enter First Player's Name:</h1>
+            <input type="text" placeholder="Player_1" name="Player1_id" autocomplete="off">
+            <br>
+            <h1>Enter Second Player's Name:</h1>
+            <input type="text" placeholder="Player_2" name="Player2_id" autocomplete="off">
+            <br>
+            <button type="submit">Submit Players</button>
+            <br>
+            <hr>
+        </div>
+    </form>
+
+    {% elif start | length == 3 %}
+    <div class="Welcome_Tic">
+        <h1>||Welcome to Tic-Tac-Toe||</h1>
+    </div>
+
+    <div class="Gaming_Board">
+        <table>
+            {% for i in range(play_ground | length) %}
+                <tr class="game_row" name="choice" value="{{i}}">
+                    {% for j in range(play_ground[i] | length ) %}
+                        <td>
+                            <button type="button">
+                                <a href="/marks/{{i}}/{{j}}">{{ play_ground[i][j] }}</a>
+                            </button>
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <button type="button" class="Reset_button">
+            <a href="/reset">Reset</a>
+        </button>
+    </div>
+
+    {% for w in range(wininers | length) %}
+        <h1>Match-{{ w }}: Winner={{ wininers[w] }}</h1>
+    {% endfor %}
+
+    {% endif %}
+{% endblock body %}
