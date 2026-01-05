@@ -8,11 +8,15 @@
 
     <form action="/players" method="POST">
         <div class="Name_div">
-            <h1 class="Players_name">Enter First Player's Name:</h1>
-            <input type="text" placeholder="Player_1" name="Player1_id" autocomplete="off">
+            <label for="Player1_id">
+                <h1 class="Players_name">Enter First Player's Name:</h1>
+            </label>
+            <input type="text" required placeholder="Player_1" name="Player1_id" autocomplete="off" id="Player1_id">
             <br>
-            <h1>Enter Second Player's Name:</h1>
-            <input type="text" placeholder="Player_2" name="Player2_id" autocomplete="off">
+            <label for="Player2_id">
+                <h1 class="Players_name">Enter Second Player's Name:</h1>
+            </label>
+            <input type="text" required placeholder="Player_2" name="Player2_id" autocomplete="off" id="Player2_id">
             <br>
             <button type="submit">Submit Players</button>
             <br>
@@ -44,10 +48,11 @@
             <a href="/reset">Reset</a>
         </button>
     </div>
-
     {% for w in range(wininers | length) %}
-        <h1>Match-{{ w }}: Winner={{ wininers[w] }}</h1>
+        <h3>Match-{{ w+1 }}: Winner={{ wininers[w] }}</h3>
     {% endfor %}
-
+    {% if player_won %}
+        <h2>The Winner : {{ player_won }}</h2>
+    {% endif %}
     {% endif %}
 {% endblock body %}
