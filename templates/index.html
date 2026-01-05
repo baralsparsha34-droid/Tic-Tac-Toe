@@ -18,12 +18,16 @@
             </label>
             <input type="text" required placeholder="Player_2" name="Player2_id" autocomplete="off" id="Player2_id">
             <br>
-            <button type="submit">Submit Players</button>
+            <label for="Field_id">
+                <h1 class="Players_name">Enter number of Rounds:</h1>
+            </label>
+            <input type="number" required placeholder="Rounds" name="Field" autocomplete="off" id="Field_id">
+            <br>
+            <button type="submit">Submit Details</button>
             <br>
             <hr>
         </div>
     </form>
-
     {% elif start | length == 3 %}
     <div class="Welcome_Tic">
         <h1>||Welcome to Tic-Tac-Toe||</h1>

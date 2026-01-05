@@ -1,10 +1,5 @@
-try:  
-    from flask import Flask,render_template,redirect,request
-    app=Flask(__name__)
-except ModuleNotFoundError as mold:
-    print("Module not found dude",mold)
-except Exception as exe:
-    print("Unknonuured!",exe)
+from flask import Flask,render_template,redirect,request
+app=Flask(__name__)
 symbol_specifier=0 
 deafult_symbol="O"
 player_1_points=[]
@@ -17,11 +12,11 @@ wininers=[]
 player_won=None#Storing the id of the winnner
 win1=0
 win2=0
+match_rounds=""
 #Putting win1 and win2 global to make them staic and don't change when route is called.
 def reset_all():#To rset the whole game.
     global win1
     global win2
-    global tie
     global start
     global player_won
     global wininers
@@ -30,7 +25,7 @@ def reset_all():#To rset the whole game.
     start="No"
     player_won=None
     wininers=[]
-    reset_board()
+    reset_board()#Inheritance of functions.Hehe
 def reset_board():#It is decleared globally so all routes can use it.To resret the board(playground and items)
     global symbol_specifier
     global play_ground
@@ -63,6 +58,7 @@ def marker_on_click(i,j):
     global player_won
     global win1
     global win2
+    global match_rounds
     #Local Variables!
     Player_1_symbol="✓"
     Player_2_symbol="✘"
@@ -72,7 +68,7 @@ def marker_on_click(i,j):
     [(0,0),(1,1),(2,2)],[(0,2),(1,1),(2,0)],
     ]#We need to write it all beacuse if we use for i in play_ground and j in play_ground[i] we ant seperate the sets of winign points.
     #Main Program!
-    if play_ground[i][j]==deafult_symbol and len(wininers)<3:
+    if play_ground[i][j]==deafult_symbol and len(wininers) < int(match_rounds): 
         symbol_specifier+=1
         if symbol_specifier%2==0:#Chaning the icon on the click.
             play_ground[i][j]=Player_2_symbol
@@ -97,7 +93,7 @@ def marker_on_click(i,j):
                 wininers.append("Tie")#Storing in the list.
                 reset_board()
                 break
-        if len(wininers)==3:
+        if len(wininers)==int(match_rounds):
             if win1 > win2:
                 player_won=player_1_id
             elif win2 > win1:
@@ -118,9 +114,12 @@ def player_names():
     global start
     global player_1_id
     global player_2_id
+    global match_rounds
     if request.method=="POST":
         player_1_id=request.form.get("Player1_id")
         player_2_id=request.form.get("Player2_id")
+        rounds=request.form.get("Field")
+        match_rounds=str(rounds)
         start="Yes"
         print(player_1_id)
         print(player_2_id)
