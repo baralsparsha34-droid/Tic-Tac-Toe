@@ -1,4 +1,5 @@
 from flask import Flask,render_template,redirect,request
+import os
 app=Flask(__name__)
 symbol_specifier=0
 deafult_symbol="O"
@@ -142,4 +143,5 @@ def player_names():
     return redirect("/")
 #logic to run the app!
 if __name__=="__main__":
-    app.run(debug=True,port=2130) 
+    ported=int(os.environ.get("PORT",2031))
+    app.run(debug=False,port=ported,host="0.0.0.0")
