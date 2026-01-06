@@ -1,4 +1,170 @@
 *{
     margin:0px;
     padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+@keyframes rotate {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+@keyframes Dj {
+    0%{
+        border-color: rgba(255,00,00,1);
+    }
+    25%{
+        border-color: rgba(255,255,00,1);
+    }
+    50%{
+        border-color: rgb(00, 255, 0);
+    }
+    75%{
+        border-color: rgba(00,00,255,1);
+    }
+    100%{
+        border-color: rgba(00,255,255,1);
+    }
+}
+.Header_Tic{
+    width: 100%;
+    height: auto;
+    border: 8px solid rgb(24, 105, 159,1);
+    border-top-color: rgba(255,255,0,1);
+    font-size: 28px;
+    font-weight: 800;
+    text-align: center;
+    padding: 1%;
+    text-decoration: underline;
+    background-color: rgba(00,00,00,1);
+    color: rgba(255,255,255,1);
+}
+body{
+    background-image: url(/static/Tic\ tac\ toe.jpg);
+    background-size: cover;
+}
+form{
+    padding-top: 5%;
+    height: calc(100vh/1.5);
+}
+.Name_div{
+   backdrop-filter: blur(15px);
+   height: 100%;
+   display: flex;
+   width: 80%;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-evenly;
+   border: 5px solid rgba(00,00,00,1); 
+   text-align: center;
+   font-weight: 900;
+   border-radius: 30px;
+}
+.Name_div input{
+    width: 80%;
+    height: 30%;
+    font-size: 20px;
+    font-weight: 600;
+    border: 6px solid rgba(00,00,00,1);
+    box-shadow: 5px 4px rgba(00,00,00,1);
+}
+.Name_div input:hover{
+    border-color:rgba(00,00,255,1) ;
+}
+.Name_div input:active{
+    border-color:rgba(255,00,00,1) ;
+}
+.Form_button{
+    font-size: 30px;
+    border-radius: 25px;
+    font-weight: 750;
+    white-space: nowrap;
+    box-shadow: 5px 7px rgba(00,00,00,1);
+}
+.Name_div h1{
+    text-decoration: underline;
+}
+.Gaming_Board{
+    width: 100%;
+    height: calc(100vh/1.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.Gaming_Table{
+    border-collapse: collapse;
+    display: table;
+    height: 80%;
+    width: 60%;
+    border: 7px solid rgba(00,00,00,1);
+    box-shadow: 8px 12px rgba(00,00,00,1);
+    border-radius: 25px;
+    background-color: rgba(255,255,255,1);
+}
+.game_row{
+    width: 100%;
+    height: calc(100%/3);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.game_data{
+    height: 80%;
+    width: calc(100%/4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15%;
+}
+.game_data button{
+    height: 100%;
+    width: 100%;
+    color: rgba(255,255,255,1);
+    text-decoration: none;
+    border-radius: 15%;
+    background-color: rgba(00,00,00,1);
+    box-shadow: 5px 4px rgba(255,255,255,1);
+}
+.game_data button a{
+    color: rgba(255,255,255,1);
+    text-decoration: none;
+    width: 1em;
+    height: 1em;
+    font-size: 60px;
+    text-align: center;
+    text-decoration: underline;
+}
+caption{
+    font: 30px;
+}
+.Match_Result{
+    font-size: 30px;
+    font-weight: 650;
+    color: rgba(00,00,00,1);
+    box-shadow: 4px 3px rgba(255,255,255,1);
+}
+.Winner_text{
+    position: absolute;
+    right: 40%;
+    bottom: 45%;
+    z-index: 7;
+    backdrop-filter: blur(50px);
+    height: 30%;
+    width: 20%;
+    text-align: center;
+    padding-top: 4%;
+    border: 7px solid rgba(255,00,00,1);
+    color: rgba(255,255,255,1);
+    background-color: rgba(00,00,00,1);
+    border-radius: 70%;
+    transform: rotate(0deg);
+    animation: rotate 3s linear 0s infinite,Dj  3s linear 0s infinite;
+    white-space: wrap;
+}
+.Winner_text:hover{
+    animation: none;
 }

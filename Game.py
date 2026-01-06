@@ -12,7 +12,8 @@ wininers=[]
 player_won=None#Storing the id of the winnner
 win1=0
 win2=0
-match_rounds=""
+match_rounds="" 
+turn=""
 #Putting win1 and win2 global to make them staic and don't change when route is called.
 def reset_all():#To rset the whole game.
     global win1
@@ -42,7 +43,8 @@ def maingame():
     global play_ground
     global wininers
     global player_won
-    return render_template("index.html",play_ground=play_ground,start=start,wininers=wininers,player_won=player_won)
+    global turn
+    return render_template("index.html",play_ground=play_ground,start=start,wininers=wininers,player_won=player_won,turn=turn)
 #The marking and winner deciding route for functionality:
 @app.route("/marks/<int:i>/<int:j>")
 def marker_on_click(i,j):
@@ -59,6 +61,7 @@ def marker_on_click(i,j):
     global win1
     global win2
     global match_rounds
+    global turn
     #Local Variables!
     Player_1_symbol="✓"
     Player_2_symbol="✘"
@@ -68,16 +71,17 @@ def marker_on_click(i,j):
     [(0,0),(1,1),(2,2)],[(0,2),(1,1),(2,0)],
     ]#We need to write it all beacuse if we use for i in play_ground and j in play_ground[i] we ant seperate the sets of winign points.
     #Main Program!
-    if play_ground[i][j]==deafult_symbol and len(wininers) < int(match_rounds): 
+    if play_ground[i][j]==deafult_symbol and len(wininers) < int(match_rounds):#int of str.
         symbol_specifier+=1
         if symbol_specifier%2==0:#Chaning the icon on the click.
             play_ground[i][j]=Player_2_symbol
+            turn=player_1_id
             player_2_points.append((i,j))#Adding the points to player2's list
         else:
             play_ground[i][j]=Player_1_symbol
+            turn=player_2_id
             player_1_points.append((i,j))#Adding the points to player1's list
         deafult_ground=[[i,j]for i in range(len(play_ground)) for j in range(len(play_ground[i])) if play_ground[i][j]==deafult_symbol]#Storing remaining points on the (board/playgroud)
-        print(deafult_ground)
         for w in wining_points:#Iterating over inner cells w is 1d list.
             if all(wl in player_1_points for wl in w):#(If all of the tuples indexes of ->wl(,) are in player1's list then declearing winner.
                 win1+=1
@@ -93,7 +97,7 @@ def marker_on_click(i,j):
                 wininers.append("Tie")#Storing in the list.
                 reset_board()
                 break
-        if len(wininers)==int(match_rounds):
+        if len(wininers)==int(match_rounds):#int of str
             if win1 > win2:
                 player_won=player_1_id
             elif win2 > win1:
@@ -115,15 +119,14 @@ def player_names():
     global player_1_id
     global player_2_id
     global match_rounds
+    global turn
     if request.method=="POST":
         player_1_id=request.form.get("Player1_id")
         player_2_id=request.form.get("Player2_id")
-        rounds=request.form.get("Field")
-        match_rounds=str(rounds)
+        rounds=request.form.get("Field")#None Type
+        match_rounds=str(rounds)#None type->str and saving in str.
         start="Yes"
-        print(player_1_id)
-        print(player_2_id)
-        print(start)
+        turn=player_1_id
     return redirect("/")
 if __name__=="__main__":
     app.run(debug=True,port=2130) 

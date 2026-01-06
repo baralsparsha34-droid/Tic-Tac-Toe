@@ -2,43 +2,44 @@
 
 {% block body %}
     {% if start | length == 2 %}
-    <div class="Register_Tic">
-        <h1>||Register to Tic-Tac-Toe||</h1>
+    <div class="Header_Tic">
+        <h1>📝 Register to Tic-Tac-Toe</h1>
     </div>
-
+    <center>
     <form action="/players" method="POST">
         <div class="Name_div">
             <label for="Player1_id">
-                <h1 class="Players_name">Enter First Player's Name:</h1>
+                <h1 class="Players_name">First Player</h1>
             </label>
             <input type="text" required placeholder="Player_1" name="Player1_id" autocomplete="off" id="Player1_id">
             <br>
             <label for="Player2_id">
-                <h1 class="Players_name">Enter Second Player's Name:</h1>
+                <h1 class="Players_name">Second Player</h1>
             </label>
             <input type="text" required placeholder="Player_2" name="Player2_id" autocomplete="off" id="Player2_id">
             <br>
             <label for="Field_id">
-                <h1 class="Players_name">Enter number of Rounds:</h1>
+                <h1 class="Players_name">Numer of Rounds</h1>
             </label>
             <input type="number" required placeholder="Rounds" name="Field" autocomplete="off" id="Field_id">
             <br>
-            <button type="submit">Submit Details</button>
+            <button type="submit" class="Form_button">Submit Details</button>
             <br>
-            <hr>
         </div>
     </form>
+    </center>
     {% elif start | length == 3 %}
-    <div class="Welcome_Tic">
-        <h1>||Welcome to Tic-Tac-Toe||</h1>
+    <div class="Header_Tic">
+        <h1> 👋 Welcome to Tic-Tac-Toe</h1>
     </div>
 
     <div class="Gaming_Board">
-        <table>
+        <caption><h3>{{turn}}'s Turn!</h3></caption>
+        <table class="Gaming_Table" border="5">
             {% for i in range(play_ground | length) %}
                 <tr class="game_row" name="choice" value="{{i}}">
                     {% for j in range(play_ground[i] | length ) %}
-                        <td>
+                        <td class="game_data">
                             <button type="button">
                                 <a href="/marks/{{i}}/{{j}}">{{ play_ground[i][j] }}</a>
                             </button>
@@ -48,15 +49,15 @@
             {% endfor %}
         </table>
         <br>
-        <button type="button" class="Reset_button">
+        <button type="button" class="Form_button">
             <a href="/reset">Reset</a>
         </button>
     </div>
     {% for w in range(wininers | length) %}
-        <h3>Match-{{ w+1 }}: Winner={{ wininers[w] }}</h3>
+        <h3 class="Match_Result">Match-{{ w+1 }}: Winner={{ wininers[w] }}</h3>
     {% endfor %}
     {% if player_won %}
-        <h2>The Winner : {{ player_won }}</h2>
+        <h2 class="Winner_text">The Winner : {{ player_won }}</h2>
     {% endif %}
     {% endif %}
 {% endblock body %}
