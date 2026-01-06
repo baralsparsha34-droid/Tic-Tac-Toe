@@ -143,5 +143,5 @@ def player_names():
     return redirect("/")
 #logic to run the app!
 if __name__=="__main__":
-    ported=int(os.environ.get("PORT",2031))
-    app.run(debug=False,port=ported,host="0.0.0.0")
+    ported=int(os.environ.get("PORT",2130))
+    app.run(debug=False,port=ported,host="0.0.0.0") 
