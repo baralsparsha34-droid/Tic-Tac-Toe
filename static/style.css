@@ -89,7 +89,7 @@ form{
 }
 .Gaming_Board{
     width: 100%;
-    height: calc(100vh/1.5);
+    height: calc(100vh/1.2);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,7 +98,7 @@ form{
 .Gaming_Table{
     border-collapse: collapse;
     display: table;
-    height: 80%;
+    height: 90%;
     width: 60%;
     border: 7px solid rgba(00,00,00,1);
     box-shadow: 8px 12px rgba(00,00,00,1);
@@ -113,7 +113,7 @@ form{
     align-items: center;
 }
 .game_data{
-    height: 80%;
+    height: 70%;
     width: calc(100%/4);
     display: flex;
     justify-content: center;
@@ -126,8 +126,14 @@ form{
     color: rgba(255,255,255,1);
     text-decoration: none;
     border-radius: 15%;
+    border-width: 5px;
     background-color: rgba(00,00,00,1);
-    box-shadow: 5px 4px rgba(255,255,255,1);
+}
+.game_data button:hover{
+    border-color: rgba(255,255,00,1);
+}
+.game_data button:active{
+    border-color: rgba(255,00,00,1);
 }
 .game_data button a{
     color: rgba(255,255,255,1);
@@ -153,8 +159,8 @@ caption{
     bottom: 45%;
     z-index: 7;
     backdrop-filter: blur(50px);
-    height: 30%;
-    width: 20%;
+    height: 200px;
+    width: 200px;
     text-align: center;
     padding-top: 4%;
     border: 7px solid rgba(255,00,00,1);
@@ -167,4 +173,9 @@ caption{
 }
 .Winner_text:hover{
     animation: none;
+}
+@media (max-width:860px) {
+    .Gaming_Table{
+        width: 88%;
+    }
 }

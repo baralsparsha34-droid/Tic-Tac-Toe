@@ -1,6 +1,6 @@
 from flask import Flask,render_template,redirect,request
 app=Flask(__name__)
-symbol_specifier=0 
+symbol_specifier=0
 deafult_symbol="O"
 player_1_points=[]
 player_2_points=[]
@@ -32,10 +32,13 @@ def reset_board():#It is decleared globally so all routes can use it.To resret t
     global play_ground
     global player_1_points
     global player_2_points
+    global player_1_id
+    global turn
     play_ground=[[deafult_symbol]*3 for _ in range (3)] 
     player_1_points=[] 
     player_2_points=[] 
     symbol_specifier=0
+    turn=player_1_id
 #Running the web the main route:
 @app.route("/",methods=["GET","POST"])
 def maingame():
@@ -65,12 +68,14 @@ def marker_on_click(i,j):
     #Local Variables!
     Player_1_symbol="✓"
     Player_2_symbol="✘"
+    check=None
     wining_points=[#The winning points.(2d list)
     [(0,0),(0,1),(0,2)],[(1,0),(1,1),(1,2)],[(2,0),(2,1),(2,2)],
     [(0,0),(1,0),(2,0)],[(0,1),(1,1),(2,1)],[(0,2),(1,2),(2,2)],
     [(0,0),(1,1),(2,2)],[(0,2),(1,1),(2,0)],
     ]#We need to write it all beacuse if we use for i in play_ground and j in play_ground[i] we ant seperate the sets of winign points.
     #Main Program!
+    #Symbol Logic adn exchanging turns!
     if play_ground[i][j]==deafult_symbol and len(wininers) < int(match_rounds):#int of str.
         symbol_specifier+=1
         if symbol_specifier%2==0:#Chaning the icon on the click.
@@ -82,21 +87,24 @@ def marker_on_click(i,j):
             turn=player_2_id
             player_1_points.append((i,j))#Adding the points to player1's list
         deafult_ground=[[i,j]for i in range(len(play_ground)) for j in range(len(play_ground[i])) if play_ground[i][j]==deafult_symbol]#Storing remaining points on the (board/playgroud)
+        #Winning Logic!
         for w in wining_points:#Iterating over inner cells w is 1d list.
             if all(wl in player_1_points for wl in w):#(If all of the tuples indexes of ->wl(,) are in player1's list then declearing winner.
                 win1+=1
                 wininers.append(player_1_id)
                 reset_board()
+                check=1#Checking for win.
                 break
             elif all(wl in player_2_points for wl in w):#(If all of the tuples indexes of ->wl(,) are in player1's list then declearing winner.
                 win2+=1
+                check=1#Checking for win.
                 wininers.append(player_2_id)#Storing in the list.
                 reset_board()
                 break
-            elif len(deafult_ground)==0:#To check if it's a tie.
-                wininers.append("Tie")#Storing in the list.
-                reset_board()
-                break
+        if len(deafult_ground)==0 and  not check :#To check if it's a tie if check is false.
+            wininers.append("Tie")#Storing in the list.
+            reset_board()
+        #Finial winner logic!
         if len(wininers)==int(match_rounds):#int of str
             if win1 > win2:
                 player_won=player_1_id
@@ -105,16 +113,18 @@ def marker_on_click(i,j):
             else: 
                 player_won="Tie"
     return redirect("/")
+#Route for html buttons.
 @app.route("/reset")
 def reset():
     global player_won
     if player_won:
-        reset_all()
+        reset_all()#To restart all
     else:
-        reset_board()
+        reset_board()#To reset board and turn to deafult
     return redirect("/")
 @app.route("/players",methods=["GET","POST"])
 def player_names():
+    #Asking the player's name and deatils.
     global start
     global player_1_id
     global player_2_id
@@ -125,8 +135,11 @@ def player_names():
         player_2_id=request.form.get("Player2_id")
         rounds=request.form.get("Field")#None Type
         match_rounds=str(rounds)#None type->str and saving in str.
-        start="Yes"
+    #Checking
+    if  int(match_rounds) and float(match_rounds)>=1:
+        start="Yes"#Start the game!
         turn=player_1_id
     return redirect("/")
+#logic to run the app!
 if __name__=="__main__":
     app.run(debug=True,port=2130) 
