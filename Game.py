@@ -2,7 +2,7 @@ from flask import Flask,render_template,redirect,request,session
 import os
 app=Flask(__name__)
 app.secret_key="Boar@2130"
-#This is a session based variable game sessiona are global but acts as local. they cna be accesed anywhere.
+#This is a session based variable game sessiona are global but acts as local. they cna be accesed anywhere
 deafult_symbol="O"#This is only global because it is needed for many functions and routes but never chnages.
 #Putting win1 and win2 global to make them staic and don't change when route is called.
 def reset_all():#To rset the whole game.
