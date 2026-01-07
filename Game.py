@@ -33,6 +33,7 @@ def maingame():
 def marker_on_click(i,j):
     #Initializing variables!
     #Local Variables!
+    session.modified=True#Modifying or each user
     Player_1_symbol="✓"
     Player_2_symbol="✘"
     check=0
