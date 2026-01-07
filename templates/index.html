@@ -53,11 +53,11 @@
             <a href="/reset">Reset</a>
         </button>
     </div>
-    {% for w in range(wininers | length) %}
-        <h3 class="Match_Result">Match-{{ w+1 }}: Winner={{ wininers[w] }}</h3>
+    {% for w in range(champs | length) %}
+        <h3 class="Match_Result">Match-{{ w+1 }}: Winner={{ champs[w] }}</h3>
     {% endfor %}
-    {% if player_won %}
-        <h2 class="Winner_text">The Winner : {{ player_won }}</h2>
+    {% if champion %}
+        <h2 class="Winner_text">The Winner : {{ champion }}</h2>
     {% endif %}
     {% endif %}
 {% endblock body %}
