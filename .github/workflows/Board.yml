@@ -1,0 +1,12 @@
+name: Keep Web Service Awake_Board
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Request
+        run: curl -I https://fun-with-board.onrender.com/
